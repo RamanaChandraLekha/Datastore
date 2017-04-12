@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+
+<body>
+	<button type="button" onclick="func()">view products</button>
+
+	<p id="demo"></p>
+	<a href='Shopkeeper.html'>Click for menu</a>
+	<div id="div">
+		<table id="dtable" >
+
+ 
+   <!--  <th id="product">productName</th>
+    <th id="quan">quantity</th> -->
+  <!-- </tr>
+  <tr>
+  <td id="1">  </td>
+  <td id="2"> </td>
+  </tr> -->
+  
+
+		</table>
+	</div>
+	<script>
+		function func() {
+			document.getElementById("dtable").innerHTML = " ";
+			var tab = document.getElementById("dtable");
+			  var row = tab.insertRow(0);
+			    var cell1 = row.insertCell(0);
+			    var cell2 = row.insertCell(1);
+			    cell1.innerHTML = "shpid";
+			    cell2.innerHTML = "productDetails";
+			
+			
+			httpRequest = new XMLHttpRequest();
+			httpRequest.onreadystatechange = function() {
+
+				if (httpRequest.readyState === XMLHttpRequest.DONE) {
+					if (httpRequest.status === 200) {
+						var obj = httpRequest.responseText;
+						var object = JSON.parse(obj);
+						for ( var i in object) {
+							 
+							array = new Array(object[i]);
+							
+							for (var count = 0; count < array.length; count++) {
+							
+								  var tab = document.getElementById("dtable");
+								 
+								    var row = tab.insertRow();
+								    var cell1 = row.insertCell(0);
+								    var cell2 = row.insertCell(1);
+								    cell1.innerHTML = i;
+								    cell2.innerHTML = array[count];
+								    
+						
+							}
+
+						}
+						
+							} else {
+						alert('There was a problem with the request.');
+					}
+
+				}
+
+				
+			};
+			httpRequest.open("GET", " /ViewProductsServlet", true)
+			httpRequest.send();
+
+		}
+	</script>
+
+</body>
+</html>
+<!-- //tab = document.createElement('table');
+								document.getElementById("dtable").innerHTML = "<table><tr><td>" + i
+										+ "</td><td>" + array[count]
+										+ "</td></tr></table>";
+								document.getElementById("dtable").appendChild(
+										tab);
+							}
+ -->
